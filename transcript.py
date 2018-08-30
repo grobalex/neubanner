@@ -6,13 +6,15 @@ import pprint
 ##############################################################################
 
 TERM = '201910'
-STUDID = '001602220'
+STUDID = ['101940867','001602220','001602220','001602220','001602220','001602220','001602220']
 
 banner.login()
 banner.termset(TERM)
 
-banner.idset(banner.getxyz_studid(STUDID))
-data = banner.studenttranscript()
+for ids in STUDID:
+	banner.idset(banner.getxyz_studid(ids))
+	data = banner.studenttranscript()
 
-pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(data)
+	if data is not None:
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(data)

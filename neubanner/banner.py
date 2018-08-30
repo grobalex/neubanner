@@ -388,7 +388,7 @@ def _parse_studenttranscript(html):
 					})
 		return retval
 	except:
-		raise ValueError('No Transcript Table Found')
+		return None
 
 def _process_spanfield(span):
 	contents = ""
@@ -460,10 +460,10 @@ def termdict():
 def termset(term):
 	global _TERM
 
-	try;
+	try:
 		_post("/udcprod8/bwlkostm.P_FacStoreTerm", {"term":term, "name1":"bmenu.P_FacMainMnu"})
 	except Exception as e:
-		raise ValueError(e + ' Termset error')
+		return None
 			
 	_TERM = term
 
