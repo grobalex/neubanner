@@ -221,29 +221,29 @@ def _parse_studentemail(html):
 	return soup.find("table", {"class":"datadisplaytable"}).find_all("tr")[1].find_all("td")[0].text.strip()
 
 def _parse_studenttranscript(html):
-	retval = {
-		"info": {},
-		"transfer":[],
-		"terms":[],
-		"totals":{},
-		"current": {
-			"courses":[],
-		}
-	}
-	soup = BeautifulSoup(html, "html.parser")
-
-	maintable = soup.find("table", {"class":"datadisplaytable"})
-
-	STUD_INFO = (0,1,2,)
-	TRANSFER = "TRANSFER CREDIT ACCEPTED BY INSTITUTION"
-	INST = "INSTITUTION CREDIT"
-	TERM_TOTAL = "Term Totals (Undergraduate)"
-	INST_TOTAL = "TRANSCRIPT TOTALS (UNDERGRADUATE)"
-	PROGRESS = "COURSES IN PROGRESS"
-
-	phase = 0
-	stuff = None
 	try:
+		retval = {
+			"info": {},
+			"transfer":[],
+			"terms":[],
+			"totals":{},
+			"current": {
+				"courses":[],
+			}
+		}
+		soup = BeautifulSoup(html, "html.parser")
+
+		maintable = soup.find("table", {"class":"datadisplaytable"})
+
+		STUD_INFO = (0,1,2,)
+		TRANSFER = "TRANSFER CREDIT ACCEPTED BY INSTITUTION"
+		INST = "INSTITUTION CREDIT"
+		TERM_TOTAL = "Term Totals (Undergraduate)"
+		INST_TOTAL = "TRANSCRIPT TOTALS (UNDERGRADUATE)"
+		PROGRESS = "COURSES IN PROGRESS"
+
+		phase = 0
+		stuff = None
 		for row in maintable.find_all("tr"):
 			if row.find("th", {"class":"ddtitle",}):
 				if phase in STUD_INFO:
@@ -388,9 +388,7 @@ def _parse_studenttranscript(html):
 					})
 		return retval
 	except:
-		raise ValueError('No Transcript Table Found')			
-
-	return retval
+		raise ValueError('No Transcript Table Found')
 
 def _process_spanfield(span):
 	contents = ""
@@ -493,24 +491,28 @@ def summaryclasslist():
 
 # nuid -> xyz or None
 def getxyz_studid(studid, term=None):
-	global _TERM
-	if term is None:
-		term = _TERM
+	try:
+		global _TERM
+		if term is None:
+			term = _TERM
 
-	params = {
-		"TERM":term,
-		"CALLING_PROC_NAME":"",
-		"CALLING_PROC_NAME2":"",
-		"term_in":term,
-		"STUD_ID":studid,
-		"last_name":"",
-		"first_name":"",
-		"search_type":"All", # Stu, Adv, Both, All
-	}
+		params = {
+			"TERM":term,
+			"CALLING_PROC_NAME":"",
+			"CALLING_PROC_NAME2":"",
+			"term_in":term,
+			"STUD_ID":studid,
+			"last_name":"",
+			"first_name":"",
+			"search_type":"All", # Stu, Adv, Both, All
+		}
 
-	result = _parse_verifyxyz(_post("/udcprod8/bwlkoids.P_FacVerifyID", params).text)
-	print(result)
-	return result
+		result = _parse_verifyxyz(_post("/udcprod8/bwlkoids.P_FacVerifyID", params).text)
+		print(result)
+		return result
+	except:
+		raise ValueError('NUID not Found')
+			
 
 # -> { xyz:name/info }
 def getxyz_name(first="", last="", stype="All", term=None):
