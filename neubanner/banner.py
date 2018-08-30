@@ -515,7 +515,7 @@ def getxyz_studid(studid, term=None):
 		print(result)
 		return result
 	except:
-		raise ValueError('NUID not Found')
+		return None
 			
 
 # -> { xyz:name/info }
