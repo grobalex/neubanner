@@ -508,7 +508,9 @@ def getxyz_studid(studid, term=None):
 		"search_type":"All", # Stu, Adv, Both, All
 	}
 
-	return _parse_verifyxyz(_post("/udcprod8/bwlkoids.P_FacVerifyID", params).text)
+	result = _parse_verifyxyz(_post("/udcprod8/bwlkoids.P_FacVerifyID", params).text)
+	print(result)
+	return result
 
 # -> { xyz:name/info }
 def getxyz_name(first="", last="", stype="All", term=None):
