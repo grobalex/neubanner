@@ -515,7 +515,7 @@ def getxyz_studid(studid, term=None):
 		print(result)
 		return result
 	except:
-		return None
+		return -1
 			
 
 # -> { xyz:name/info }
