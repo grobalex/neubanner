@@ -160,7 +160,7 @@ def _parse_verifyxyz(html):
 
 	result = soup.find_all("form")[1].find("input", {"name":"xyz"})
 	if result is None:
-		return None
+		return -1
 	else:
 		return result["value"]
 
