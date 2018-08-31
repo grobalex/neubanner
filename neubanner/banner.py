@@ -388,7 +388,7 @@ def _parse_studenttranscript(html):
 					})
 		return retval
 	except:
-		return None
+		return -1
 
 def _process_spanfield(span):
 	contents = ""
