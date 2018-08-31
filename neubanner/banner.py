@@ -160,7 +160,7 @@ def _parse_verifyxyz(html):
 
 	result = soup.find_all("form")[1].find("input", {"name":"xyz"})
 	if result is None:
-		return -1
+		return 0
 	else:
 		return result["value"]
 
@@ -388,7 +388,7 @@ def _parse_studenttranscript(html):
 					})
 		return retval
 	except:
-		return -1
+		return None
 
 def _process_spanfield(span):
 	contents = ""
@@ -463,7 +463,7 @@ def termset(term):
 	try:
 		_post("/udcprod8/bwlkostm.P_FacStoreTerm", {"term":term, "name1":"bmenu.P_FacMainMnu"})
 	except Exception as e:
-		return -1
+		return 0
 			
 	_TERM = term
 
@@ -515,7 +515,7 @@ def getxyz_studid(studid, term=None):
 		print(result)
 		return result
 	except:
-		return -1
+		return 0
 			
 
 # -> { xyz:name/info }
