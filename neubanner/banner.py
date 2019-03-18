@@ -390,8 +390,6 @@ def _parse_studenttranscript(html):
                 th = row.find_all("th")
                 td = row.find_all("td")
 
-                print("################")
-                print(row.find("span", {"class": "fieldOrangetextbold", }))
                 if row.find("span", {"class": "fieldOrangetextbold", }):
                     retval["current"]["term"] = row.text[
                         row.text.find(":") + 1:].strip()
